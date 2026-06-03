@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr TEETH Dental Clinic - Review Assistant</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f7f6; padding: 20px; color: #333; display: flex; justify-content: center; align-items: center; min-height: 90vh; }
+        .card { background: white; padding: 28px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 420px; width: 100%; text-align: center; }
+        h1 { color: #008080; font-size: 26px; margin-bottom: 6px; font-weight: 700; }
+        p { color: #666; font-size: 14px; margin-bottom: 24px; line-height: 1.4; }
+        label { display: block; text-align: left; margin-bottom: 8px; font-weight: bold; color: #444; font-size: 14px; }
+        select { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 24px; background-color: #fff; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 12px; transition: background 0.2s; }
+        .btn-gen { background: #008080; color: white; }
+        .btn-gen:hover { background: #006666; }
+        .review-box { background: #f9f9f9; border-left: 4px solid #008080; padding: 16px; border-radius: 4px; margin-top: 24px; text-align: left; font-style: italic; display: none; line-height: 1.5; font-size: 15px; color: #444; }
+        .btn-action { background: #4CAF50; color: white; display: none; }
+        .btn-action:hover { background: #43a047; }
+        .btn-google { background: #4285F4; color: white; display: none; }
+        .btn-google:hover { background: #357ae8; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Dr TEETH Dental Clinic</h1>
+    <p>Thank you for choosing us! Select the care you received today to instantly generate a custom review draft.</p>
+    
+    <label for="service">What treatment did you receive today?</label>
+    <select id="service">
+        <option value="routine_checkup">Routine Checkup / X-ray</option>
+        <option value="cleaning_polishing">Dental Cleaning / Polishing</option>
+        <option value="tooth_filling">Tooth Filling</option>
+        <option value="root_canal">Root Canal Treatment</option>
+        <option value="extraction">Tooth Extraction</option>
+        <option value="implant_consultation">IMPLANT Treatment / Consultation</option>
+        <option value="wisdom_tooth">Wisdom Tooth Removal</option>
+        <option value="crown_placement">Crown Placement</option>
+        <option value="bridge_treatment">Bridge Treatment</option>
+        <option value="denture">Denture Work</option>
+        <option value="teeth_whitening">Teeth Whitening</option>
+        <option value="braces_treatment">Braces Treatment</option>
+        <option value="clear_aligners">Clear Aligners</option>
+        <option value="gum_surgery">Gum Surgery</option>
+        <option value="child_dental">Child Dental Treatment</option>
+        <option value="emergency_treatment">Emergency Dental Treatment</option>
+        <option value="pain_relief">Pain Relief / Sensitivity Treatment</option>
+        <option value="cosmetic_veneers">Cosmetic Restoration / Veneers</option>
+        <option value="night_guard">Night Guard / Splint</option>
+    </select>
+
+    <button class="btn-gen" onclick="generateReview()">✨ Generate My AI Review</button>
+
+    <div class="review-box" id="reviewBox"></div>
+    <button class="btn-action" id="copyBtn" onclick="copyText()">📋 Copy Review Text</button>
+    <button class="btn-google" id="googleBtn" onclick="openGoogle()">⭐ Paste & Submit on Google</button>
+</div>
+
+<script>
+    const reviews = {
+        "routine_checkup": [
+            "Great experience at Dr TEETH dental clinic for my routine checkup and X-rays. The staff was incredibly thorough, clear, and welcoming.",
+            "Very professional and quick dental checkup. They explained my X-rays in detail and made sure I understood everything. 5 stars!"
+        ],
+        "cleaning_polishing": [
+            "Just finished a dental cleaning and polishing here. My teeth feel amazing and the hygienist was incredibly gentle and meticulous.",
+            "Best teeth cleaning experience I've had. The team at Dr TEETH is thorough, friendly, and very professional."
+        ],
+        "tooth_filling": [
+            "Had a tooth filling done today and it was completely seamless. The dentist was quick, gentle, and ensured I was totally comfortable.",
+            "Excellent care fixing a cavity here. The process was painless and the team was fantastic from start to finish."
+        ],
+        "root_canal": [
+            "I was nervous about getting a root canal treatment, but Dr TEETH dental clinic made it entirely painless and smooth. Excellent care!",
+            "Highly professional root canal treatment. They kept me comfortable throughout the procedure and explained everything clearly."
+        ],
+        "extraction": [
+            "Had a tooth extraction done and the team made a stressful situation feel completely calm and manageable. Very gentle care.",
+            "Fast and painless extraction process. The post-care instructions were perfectly clear. Highly recommend Dr TEETH!"
+        ],
+        "implant_consultation": [
+            "Excellent implant consultation today. They used advanced tech to show me my options and gave me an honest, transparent plan.",
+            "Very happy with my dental implant treatment here. Professional, state-of-the-art facility and brilliant results."
+        ],
+        "wisdom_tooth": [
+            "Got my wisdom teeth removed here and the recovery has been incredibly smooth. The surgical team is absolutely top-tier.",
+            "Fast, safe, and professional wisdom tooth extraction. They checked on my comfort constantly during the appointment."
+        ],
+        "crown_placement": [
+            "My custom dental crown looks and feels perfectly natural. Dr TEETH dental clinic did a flawless job fitting it.",
+            "Incredibly precise work on my new crown. The bite feels perfect and the clinic staff was wonderfully attentive."
+        ],
+        "bridge_treatment": [
+            "Great experience with my dental bridge treatment. The fit is perfect and it has completely restored my smile and bite.",
+            "Very professional bridge work. They took great care to ensure it matched my teeth beautifully."
+        ],
+        "denture": [
+            "The team went above and beyond to make sure my new dentures fit comfortably and looked great. Wonderful customer care.",
+            "Highly patient and professional staff for denture adjustments. They make sure you leave happy and comfortable."
+        ],
+        "teeth_whitening": [
+            "Absolutely thrilled with my teeth whitening results! My smile is so much brighter and the process was easy and comfortable.",
+            "Amazing aesthetic results from their teeth whitening service. Highly recommend Dr TEETH if you want to brighten your smile."
+        ],
+        "braces_treatment": [
+            "Wonderful experience with my braces treatment here. Every adjustment appointment is quick, friendly, and highly professional.",
+            "The orthodontic team at Dr TEETH is fantastic. They keep me updated on my progress and are always so welcoming."
+        ],
+        "clear_aligners": [
+            "Loving my clear aligners journey with Dr TEETH. The digital tracking is seamless and the staff answers all my questions.",
+            "Super modern and easy setup for invisible aligners. Truly professional cosmetic dental care!"
+        ],
+        "gum_surgery": [
+            "Professional and highly reassuring team for gum surgery. They kept me completely pain-free and gave excellent recovery steps.",
+            "Top-notch periodontal care. The surgery went exactly as planned and the healing has been great."
+        ],
+        "child_dental": [
+            "Fantastic pediatric dental care! They made my child feel completely safe, happy, and relaxed during the whole visit.",
+            "Dr TEETH is wonderful with kids. They make dental health fun and stress-free for the little ones."
+        ],
+        "emergency_treatment": [
+            "They took me in immediately for an emergency dental issue and resolved the issue safely. Incredible care when I needed it most.",
+            "Lifesavers! Handled my dental emergency quickly, professionally, and took away all the anxiety."
+        ],
+        "pain_relief": [
+            "Came in with severe tooth sensitivity and left with instant relief. They diagnosed the source perfectly and treated it gently.",
+            "Incredible care for dental pain. They listen carefully and fix the problem right away."
+        ],
+        "cosmetic_veneers": [
+            "My new veneers have completely transformed my confidence. Dr TEETH dental clinic does beautiful, natural-looking cosmetic work.",
+            "Amazing artistry with cosmetic dental restorations. The results look flawless and feel completely natural."
+        ],
+        "night_guard": [
+            "Got a custom night guard for teeth grinding and it fits flawlessly. My jaw pain is completely gone in the mornings.",
+            "Great experience getting fitted for a dental splint. Quick turnaround time and excellent quality appliance."
+        ]
+    };
+
+    function generateReview() {
+        const type = document.getElementById('service').value;
+        const options = reviews[type];
+        
+        // Randomly select one of the pre-written variants to avoid duplicate review penalties
+        const randomReview = options[Math.floor(Math.random() * options.length)];
+        
+        const box = document.getElementById('reviewBox');
+        box.innerText = randomReview;
+        box.style.display = 'block';
+        
+        document.getElementById('copyBtn').style.display = 'block';
+        document.getElementById('googleBtn').style.display = 'block';
+    }
+
+    function copyText() {
+        const text = document.getElementById('reviewBox').innerText;
+        
+        // Fallback technique for mobile browsers
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = text;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        tempTextArea.setSelectionRange(0, 99999); 
+        
+        try {
+            document.execCommand("copy");
+            alert("📋 Review copied! Now tap the blue button to open Google and paste it.");
+        } catch (err) {
+            navigator.clipboard.writeText(text);
+        }
+        
+        document.body.removeChild(tempTextArea);
+    }
+
+    function openGoogle() {
+        window.open("https://g.page/r/CeoFrMcBaF_GEBM/review", "_blank");
+    }
+</script>
+
+</body>
+</html>
