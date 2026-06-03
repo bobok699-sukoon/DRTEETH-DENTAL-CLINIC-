@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr TEETH Dental Clinic - Review Assistant</title>
+    <title>Dr TEETH Dental Clinic - Smart Review Portal</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f7f6; padding: 20px; color: #333; display: flex; justify-content: center; align-items: center; min-height: 90vh; }
-        .card { background: white; padding: 28px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 420px; width: 100%; text-align: center; }
+        .card { background: white; padding: 28px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 440px; width: 100%; text-align: center; }
         h1 { color: #008080; font-size: 26px; margin-bottom: 6px; font-weight: 700; }
         p { color: #666; font-size: 14px; margin-bottom: 24px; line-height: 1.4; }
         label { display: block; text-align: left; margin-bottom: 8px; font-weight: bold; color: #444; font-size: 14px; }
@@ -25,29 +25,29 @@
 
 <div class="card">
     <h1>Dr TEETH Dental Clinic</h1>
-    <p>Thank you for choosing us! Select the care you received today to instantly generate a custom review draft.</p>
+    <p>Thank you for placing your trust in our care! Select your treatment below to instantly create a personalized review draft for Google.</p>
     
     <label for="service">What treatment did you receive today?</label>
     <select id="service">
-        <option value="routine_checkup">Routine Checkup / X-ray</option>
-        <option value="cleaning_polishing">Dental Cleaning / Polishing</option>
-        <option value="tooth_filling">Tooth Filling</option>
-        <option value="root_canal">Root Canal Treatment</option>
-        <option value="extraction">Tooth Extraction</option>
-        <option value="implant_consultation">IMPLANT Treatment / Consultation</option>
-        <option value="wisdom_tooth">Wisdom Tooth Removal</option>
-        <option value="crown_placement">Crown Placement</option>
-        <option value="bridge_treatment">Bridge Treatment</option>
-        <option value="denture">Denture Work</option>
-        <option value="teeth_whitening">Teeth Whitening</option>
-        <option value="braces_treatment">Braces Treatment</option>
-        <option value="clear_aligners">Clear Aligners</option>
-        <option value="gum_surgery">Gum Surgery</option>
-        <option value="child_dental">Child Dental Treatment</option>
-        <option value="emergency_treatment">Emergency Dental Treatment</option>
-        <option value="pain_relief">Pain Relief / Sensitivity Treatment</option>
-        <option value="cosmetic_veneers">Cosmetic Restoration / Veneers</option>
-        <option value="night_guard">Night Guard / Splint</option>
+        <option value="Routine checkup/X-ray">Routine Checkup / X-ray</option>
+        <option value="Dental cleaning/polishing">Dental Cleaning / Polishing</option>
+        <option value="Tooth Filling">Tooth Filling</option>
+        <option value="Root canal treatment">Root Canal Treatment</option>
+        <option value="Tooth extraction">Tooth Extraction</option>
+        <option value="IMPLANT treatment/Consultation">IMPLANT Treatment / Consultation</option>
+        <option value="Wisdom tooth removal">Wisdom Tooth Removal</option>
+        <option value="Crown placement">Crown Placement</option>
+        <option value="Bridge treatment">Bridge Treatment</option>
+        <option value="Denture">Denture Work</option>
+        <option value="Teeth whitening">Teeth Whitening</option>
+        <option value="Braces treatment">Braces Treatment</option>
+        <option value="Clear aligners">Clear Aligners</option>
+        <option value="Gum surgery">Gum Surgery</option>
+        <option value="Child dental treatment">Child Dental Treatment</option>
+        <option value="Emergency dental treatment">Emergency Dental Treatment</option>
+        <option value="Pain relief / sensitivity treatment">Pain Relief & Sensitivity Care</option>
+        <option value="Cosmetic restoration/Veneers">Cosmetic Restoration / Veneers</option>
+        <option value="Night guard / splint">Night Guard / Splint</option>
     </select>
 
     <button class="btn-gen" onclick="generateReview()">✨ Generate My AI Review</button>
@@ -58,94 +58,133 @@
 </div>
 
 <script>
-    const reviews = {
-        "routine_checkup": [
-            "Great experience at Dr TEETH dental clinic for my routine checkup and X-rays. The staff was incredibly thorough, clear, and welcoming.",
-            "Very professional and quick dental checkup. They explained my X-rays in detail and made sure I understood everything. 5 stars!"
+    // Part 1: Dynamic Hooks
+    const openers = [
+        "Highly satisfied with the treatment at Dr TEETH dental clinic.",
+        "Visits to dental clinics can be scary, but Dr TEETH dental clinic made it incredibly seamless.",
+        "Had an excellent appointment today at Dr TEETH dental clinic.",
+        "Truly wonderful experience at Dr TEETH clinic.",
+        "If you want painless oral care, Dr TEETH dental clinic is the place to go.",
+        "Super happy with the dental results here at Dr TEETH."
+    ];
+
+    // Part 2: Hyper-Local Target Keyword Anchors
+    const localSEOAnchors = [
+        "They are definitely the best dentist in Nashik.",
+        "Without a doubt, a highly professional dentist with a good hand near me.",
+        "This is the top dental clinic on Jail Road.",
+        "Hands down the most professional dentist with a good hand in Nashik Road area.",
+        "Easily the best dentist in Nashik Road to handle complex oral issues safely."
+    ];
+
+    // Part 3: Deep Treatment Libraries
+    const treatmentMiddles = {
+        "Routine checkup/X-ray": [
+            "I went in for a routine checkup/X-ray and appreciated how thoroughly they checked everything.",
+            "The doctor performed a detailed routine checkup/X-ray and carefully mapped out my entire dental health status."
         ],
-        "cleaning_polishing": [
-            "Just finished a dental cleaning and polishing here. My teeth feel amazing and the hygienist was incredibly gentle and meticulous.",
-            "Best teeth cleaning experience I've had. The team at Dr TEETH is thorough, friendly, and very professional."
+        "Dental cleaning/polishing": [
+            "Got my dental cleaning/polishing done today. The process was highly refreshing and my teeth feel incredibly smooth.",
+            "The dental cleaning/polishing left my smile looking bright and completely clean. Zero discomfort during scaling."
         ],
-        "tooth_filling": [
-            "Had a tooth filling done today and it was completely seamless. The dentist was quick, gentle, and ensured I was totally comfortable.",
-            "Excellent care fixing a cavity here. The process was painless and the team was fantastic from start to finish."
+        "Tooth Filling": [
+            "The doctor did a fantastic job with my tooth filling procedure. The composite material looks perfectly natural.",
+            "Had a quick tooth filling done to repair a cavity. It was completely painless and my bite feels great."
         ],
-        "root_canal": [
-            "I was nervous about getting a root canal treatment, but Dr TEETH dental clinic made it entirely painless and smooth. Excellent care!",
-            "Highly professional root canal treatment. They kept me comfortable throughout the procedure and explained everything clearly."
+        "Root canal treatment": [
+            "I was completely pain-free during my entire root canal treatment. They are true specialists in handling nerve issues.",
+            "Excellent care during my multi-sitting root canal treatment. No pain at all and highly comforting care."
         ],
-        "extraction": [
-            "Had a tooth extraction done and the team made a stressful situation feel completely calm and manageable. Very gentle care.",
-            "Fast and painless extraction process. The post-care instructions were perfectly clear. Highly recommend Dr TEETH!"
+        "Tooth extraction": [
+            "Had a clean tooth extraction done. It was over much faster than I anticipated with great local anesthesia.",
+            "They managed my infected tooth extraction incredibly well. The procedure was gentle and completely safe."
         ],
-        "implant_consultation": [
-            "Excellent implant consultation today. They used advanced tech to show me my options and gave me an honest, transparent plan.",
-            "Very happy with my dental implant treatment here. Professional, state-of-the-art facility and brilliant results."
+        "IMPLANT treatment/Consultation": [
+            "Received a professional IMPLANT treatment/Consultation today. They mapped everything with advanced tools.",
+            "Very satisfied with the transparency and premium tech used during my implant treatment consultation."
         ],
-        "wisdom_tooth": [
-            "Got my wisdom teeth removed here and the recovery has been incredibly smooth. The surgical team is absolutely top-tier.",
-            "Fast, safe, and professional wisdom tooth extraction. They checked on my comfort constantly during the appointment."
+        "Wisdom tooth removal": [
+            "Had my wisdom tooth removal surgical procedure completed. The healing has been fast thanks to their precision work.",
+            "The surgical extraction for my wisdom tooth removal was completely stress-free and smooth."
         ],
-        "crown_placement": [
-            "My custom dental crown looks and feels perfectly natural. Dr TEETH dental clinic did a flawless job fitting it.",
-            "Incredibly precise work on my new crown. The bite feels perfect and the clinic staff was wonderfully attentive."
+        "Crown placement": [
+            "The doctor did a precise job with my permanent crown placement. The customized fit matches my adjacent teeth perfectly.",
+            "The materials used for my crown placement are excellent. Feels just like my original tooth."
         ],
-        "bridge_treatment": [
-            "Great experience with my dental bridge treatment. The fit is perfect and it has completely restored my smile and bite.",
-            "Very professional bridge work. They took great care to ensure it matched my teeth beautifully."
+        "Bridge treatment": [
+            "My smile is fully restored thanks to their excellent bridge treatment. I can chew normally again.",
+            "The structural fit and aesthetics of my bridge treatment are absolute perfection. Fantastic workmanship."
         ],
-        "denture": [
-            "The team went above and beyond to make sure my new dentures fit comfortably and looked great. Wonderful customer care.",
-            "Highly patient and professional staff for denture adjustments. They make sure you leave happy and comfortable."
+        "Denture": [
+            "They created a highly stable, comfortable custom denture for me. Truly improved my daily comfort.",
+            "The team spent substantial time adjusting my denture until the fit was exactly right and completely secure."
         ],
-        "teeth_whitening": [
-            "Absolutely thrilled with my teeth whitening results! My smile is so much brighter and the process was easy and comfortable.",
-            "Amazing aesthetic results from their teeth whitening service. Highly recommend Dr TEETH if you want to brighten your smile."
+        "Teeth whitening": [
+            "My smile looks many shades lighter after just one teeth whitening treatment. Very professional aesthetic care.",
+            "The cosmetic shade improvement from their teeth whitening system exceeded all my expectations."
         ],
-        "braces_treatment": [
-            "Wonderful experience with my braces treatment here. Every adjustment appointment is quick, friendly, and highly professional.",
-            "The orthodontic team at Dr TEETH is fantastic. They keep me updated on my progress and are always so welcoming."
+        "Braces treatment": [
+            "Highly systemic track on my ongoing orthodontic braces treatment here. The movement is perfectly on schedule.",
+            "Excellent monitoring for structural alignment. This braces treatment clinic is highly methodical."
         ],
-        "clear_aligners": [
-            "Loving my clear aligners journey with Dr TEETH. The digital tracking is seamless and the staff answers all my questions.",
-            "Super modern and easy setup for invisible aligners. Truly professional cosmetic dental care!"
+        "Clear aligners": [
+            "Seamless scanning and custom design loop for my modern clear aligners. No wires or metal visibility at all.",
+            "Enjoying my smile transformation journey with their invisible clear aligners. Incredible aesthetic care."
         ],
-        "gum_surgery": [
-            "Professional and highly reassuring team for gum surgery. They kept me completely pain-free and gave excellent recovery steps.",
-            "Top-notch periodontal care. The surgery went exactly as planned and the healing has been great."
+        "Gum surgery": [
+            "The doctor was extremely delicate while executing my periodontal gum surgery. Excellent post-care tracking.",
+            "Top-tier tissue care during my complex laser gum surgery. Very minimal bleeding and quick recovery."
         ],
-        "child_dental": [
-            "Fantastic pediatric dental care! They made my child feel completely safe, happy, and relaxed during the whole visit.",
-            "Dr TEETH is wonderful with kids. They make dental health fun and stress-free for the little ones."
+        "Child dental treatment": [
+            "They are brilliant with pediatric care! My kid was smiling through the whole child dental treatment.",
+            "The best child dental treatment environment. They kept my daughter completely entertained and secure."
         ],
-        "emergency_treatment": [
-            "They took me in immediately for an emergency dental issue and resolved the issue safely. Incredible care when I needed it most.",
-            "Lifesavers! Handled my dental emergency quickly, professionally, and took away all the anxiety."
+        "Emergency dental treatment": [
+            "They accepted me instantly without warning for an emergency dental treatment and relieved my acute pain.",
+            "Outstanding speed and medical precision during a severe emergency dental treatment situation."
         ],
-        "pain_relief": [
-            "Came in with severe tooth sensitivity and left with instant relief. They diagnosed the source perfectly and treated it gently.",
-            "Incredible care for dental pain. They listen carefully and fix the problem right away."
+        "Pain relief / sensitivity treatment": [
+            "Got instant pain relief / sensitivity treatment today. They targeted the structural issue flawlessly.",
+            "Highly accurate desensitization care. Finally, I can drink cold water without sharp sensitivity pain."
         ],
-        "cosmetic_veneers": [
-            "My new veneers have completely transformed my confidence. Dr TEETH dental clinic does beautiful, natural-looking cosmetic work.",
-            "Amazing artistry with cosmetic dental restorations. The results look flawless and feel completely natural."
+        "Cosmetic restoration/Veneers": [
+            "The visual design of my cosmetic restoration/Veneers looks astonishingly natural and highly premium.",
+            "Incredible skill with ceramic veneers and comprehensive cosmetic restoration details."
         ],
-        "night_guard": [
-            "Got a custom night guard for teeth grinding and it fits flawlessly. My jaw pain is completely gone in the mornings.",
-            "Great experience getting fitted for a dental splint. Quick turnaround time and excellent quality appliance."
+        "Night guard / splint": [
+            "The precision fit of my custom night guard / splint has instantly alleviated all my morning jaw stiffness.",
+            "High-quality medical grade polymers used for my bruxism night guard / splint. Fits very comfortably."
         ]
     };
 
+    // Part 4: Hygiene & Final Trust Anchors
+    const closers = [
+        "The overall setup on Jail Road Nashik Road is exceptionally clean and well-maintained.",
+        "The clinic prioritizes strict hygiene parameters. Highly recommend to everyone nearby!",
+        "Very courteous support team and transparent billing structures.",
+        "Will definitely continue using them for all my long-term dental requirements.",
+        "The treatment fees are completely worth the premium expert care they deliver.",
+        "If you want safe, advanced treatments, this is the clinic to rely on."
+    ];
+
+    function getRandomItem(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
     function generateReview() {
-        const type = document.getElementById('service').value;
-        const options = reviews[type];
+        const selectedService = document.getElementById('service').value;
         
-        // Randomly select one of the pre-written variants to avoid duplicate review penalties
-        const randomReview = options[Math.floor(Math.random() * options.length)];
+        // Randomly combine items to hit the 360 mathematical variations mark per service
+        const part1 = getRandomItem(openers);
+        const part2 = getRandomItem(localSEOAnchors);
+        const part3 = getRandomItem(treatmentMiddles[selectedService]);
+        const part4 = getRandomItem(closers);
+        
+        // Form a naturally reading human review paragraph
+        const finalReview = `${part1} ${part2} ${part3} ${part4}`;
         
         const box = document.getElementById('reviewBox');
-        box.innerText = randomReview;
+        box.innerText = finalReview;
         box.style.display = 'block';
         
         document.getElementById('copyBtn').style.display = 'block';
@@ -154,8 +193,6 @@
 
     function copyText() {
         const text = document.getElementById('reviewBox').innerText;
-        
-        // Fallback technique for mobile browsers
         const tempTextArea = document.createElement("textarea");
         tempTextArea.value = text;
         document.body.appendChild(tempTextArea);
@@ -164,11 +201,10 @@
         
         try {
             document.execCommand("copy");
-            alert("📋 Review copied! Now tap the blue button to open Google and paste it.");
+            alert("📋 Review text successfully copied! Click the blue button next to paste it into Google Maps.");
         } catch (err) {
             navigator.clipboard.writeText(text);
         }
-        
         document.body.removeChild(tempTextArea);
     }
 
