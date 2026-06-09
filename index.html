@@ -1,33 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr TEETH Dental Clinic - Smart Review Portal</title>
+    <title>Dr TEETH Dental Clinic - Advanced Review Portal</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f7f6; padding: 20px; color: #333; display: flex; justify-content: center; align-items: center; min-height: 90vh; }
         .card { background: white; padding: 28px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 440px; width: 100%; text-align: center; }
         h1 { color: #008080; font-size: 26px; margin-bottom: 6px; font-weight: 700; }
         p { color: #666; font-size: 14px; margin-bottom: 24px; line-height: 1.4; }
-        label { display: block; text-align: left; margin-bottom: 8px; font-weight: bold; color: #444; font-size: 14px; }
-        select { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 24px; background-color: #fff; box-sizing: border-box; }
+        .alert-box { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px; text-align: left; font-weight: bold; }
+        label { display: block; text-align: left; margin-bottom: 6px; font-weight: bold; color: #444; font-size: 14px; }
+        select { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 20px; background-color: #fff; box-sizing: border-box; }
         button { width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 12px; transition: background 0.2s; }
         .btn-gen { background: #008080; color: white; }
-        .btn-gen:hover { background: #006666; }
         .review-box { background: #f9f9f9; border-left: 4px solid #008080; padding: 16px; border-radius: 4px; margin-top: 24px; text-align: left; font-style: italic; display: none; line-height: 1.5; font-size: 15px; color: #444; }
         .btn-action { background: #4CAF50; color: white; display: none; }
-        .btn-action:hover { background: #43a047; }
         .btn-google { background: #4285F4; color: white; display: none; }
-        .btn-google:hover { background: #357ae8; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <h1>Dr TEETH Dental Clinic</h1>
-    <p>Thank you for placing your trust in our care! Select your treatment below to instantly create a personalized review draft for Google.</p>
+    <p>Thank you for choosing us! Select your details below to instantly draft an authentic, personalized review.</p>
     
-    <label for="service">What treatment did you receive today?</label>
+    <div class="alert-box">⚠️ Please disconnect from clinic Wi-Fi and use your Mobile Data (4G/5G) so Google accepts your post!</div>
+
+    <label for="ageGroup">Who was the patient today?</label>
+    <select id="ageGroup">
+        <option value="student">Student / Young Adult</option>
+        <option value="working">Working Professional</option>
+        <option value="parent">Parent (For my Child)</option>
+        <option value="middleaged">Family Member / Adult</option>
+        <option value="senior">Senior Citizen / Elderly</option>
+    </select>
+
+    <label for="service">What treatment did you receive?</label>
     <select id="service">
         <option value="Routine checkup/X-ray">Routine Checkup / X-ray</option>
         <option value="Dental cleaning/polishing">Dental Cleaning / Polishing</option>
@@ -50,141 +60,237 @@
         <option value="Night guard / splint">Night Guard / Splint</option>
     </select>
 
-    <button class="btn-gen" onclick="generateReview()">✨ Generate My AI Review</button>
+    <button class="btn-gen" onclick="generateReview()">✨ Generate Humanized Review</button>
 
     <div class="review-box" id="reviewBox"></div>
     <button class="btn-action" id="copyBtn" onclick="copyText()">📋 Copy Review Text</button>
-    <button class="btn-google" id="googleBtn" onclick="openGoogle()">⭐ Paste & Submit on Google</button>
+    <button class="btn-google" id="googleBtn" onclick="openGoogle()">⭐ Open Google & Paste</button>
 </div>
 
 <script>
-    // Part 1: Dynamic Hooks
-    const openers = [
-        "Highly satisfied with the treatment at Dr TEETH dental clinic.",
-        "Visits to dental clinics can be scary, but Dr TEETH dental clinic made it incredibly seamless.",
-        "Had an excellent appointment today at Dr TEETH dental clinic.",
-        "Truly wonderful experience at Dr TEETH clinic.",
-        "If you want painless oral care, Dr TEETH dental clinic is the place to go.",
-        "Super happy with the dental results here at Dr TEETH."
-    ];
-
-    // Part 2: Hyper-Local Target Keyword Anchors
-    const localSEOAnchors = [
-        "They are definitely the best dentist in Nashik.",
-        "Without a doubt, a highly professional dentist with a good hand near me.",
-        "This is the top dental clinic on Jail Road.",
-        "Hands down the most professional dentist with a good hand in Nashik Road area.",
-        "Easily the best dentist in Nashik Road to handle complex oral issues safely."
-    ];
-
-    // Part 3: Deep Treatment Libraries
-    const treatmentMiddles = {
-        "Routine checkup/X-ray": [
-            "I went in for a routine checkup/X-ray and appreciated how thoroughly they checked everything.",
-            "The doctor performed a detailed routine checkup/X-ray and carefully mapped out my entire dental health status."
+    // Component arrays for the length engine to dynamically build paragraphs
+    const ageOpeners = {
+        "student": [
+            "As a college student living in the city, finding a trustworthy dental setup was important to me.",
+            "Being a student, I was looking for efficient and affordable dental care."
         ],
-        "Dental cleaning/polishing": [
-            "Got my dental cleaning/polishing done today. The process was highly refreshing and my teeth feel incredibly smooth.",
-            "The dental cleaning/polishing left my smile looking bright and completely clean. Zero discomfort during scaling."
+        "working": [
+            "As a busy working professional, I deeply appreciate how strictly they manage appointment schedules.",
+            "Great experience at Dr TEETH clinic today. Clean execution and perfect timing for corporate professionals."
         ],
-        "Tooth Filling": [
-            "The doctor did a fantastic job with my tooth filling procedure. The composite material looks perfectly natural.",
-            "Had a quick tooth filling done to repair a cavity. It was completely painless and my bite feels great."
+        "parent": [
+            "Brought my young child here for pediatric dental tracking and the experience was fantastic.",
+            "As a parent, finding a gentle dentist is hard, but this team was amazing with my kid."
         ],
-        "Root canal treatment": [
-            "I was completely pain-free during my entire root canal treatment. They are true specialists in handling nerve issues.",
-            "Excellent care during my multi-sitting root canal treatment. No pain at all and highly comforting care."
+        "middleaged": [
+            "Visits to the dentist can often bring anxiety, but this clinic made my experience very comfortable.",
+            "Had an excellent treatment appointment today for my regular oral health upkeep."
         ],
-        "Tooth extraction": [
-            "Had a clean tooth extraction done. It was over much faster than I anticipated with great local anesthesia.",
-            "They managed my infected tooth extraction incredibly well. The procedure was gentle and completely safe."
-        ],
-        "IMPLANT treatment/Consultation": [
-            "Received a professional IMPLANT treatment/Consultation today. They mapped everything with advanced tools.",
-            "Very satisfied with the transparency and premium tech used during my implant treatment consultation."
-        ],
-        "Wisdom tooth removal": [
-            "Had my wisdom tooth removal surgical procedure completed. The healing has been fast thanks to their precision work.",
-            "The surgical extraction for my wisdom tooth removal was completely stress-free and smooth."
-        ],
-        "Crown placement": [
-            "The doctor did a precise job with my permanent crown placement. The customized fit matches my adjacent teeth perfectly.",
-            "The materials used for my crown placement are excellent. Feels just like my original tooth."
-        ],
-        "Bridge treatment": [
-            "My smile is fully restored thanks to their excellent bridge treatment. I can chew normally again.",
-            "The structural fit and aesthetics of my bridge treatment are absolute perfection. Fantastic workmanship."
-        ],
-        "Denture": [
-            "They created a highly stable, comfortable custom denture for me. Truly improved my daily comfort.",
-            "The team spent substantial time adjusting my denture until the fit was exactly right and completely secure."
-        ],
-        "Teeth whitening": [
-            "My smile looks many shades lighter after just one teeth whitening treatment. Very professional aesthetic care.",
-            "The cosmetic shade improvement from their teeth whitening system exceeded all my expectations."
-        ],
-        "Braces treatment": [
-            "Highly systemic track on my ongoing orthodontic braces treatment here. The movement is perfectly on schedule.",
-            "Excellent monitoring for structural alignment. This braces treatment clinic is highly methodical."
-        ],
-        "Clear aligners": [
-            "Seamless scanning and custom design loop for my modern clear aligners. No wires or metal visibility at all.",
-            "Enjoying my smile transformation journey with their invisible clear aligners. Incredible aesthetic care."
-        ],
-        "Gum surgery": [
-            "The doctor was extremely delicate while executing my periodontal gum surgery. Excellent post-care tracking.",
-            "Top-tier tissue care during my complex laser gum surgery. Very minimal bleeding and quick recovery."
-        ],
-        "Child dental treatment": [
-            "They are brilliant with pediatric care! My kid was smiling through the whole child dental treatment.",
-            "The best child dental treatment environment. They kept my daughter completely entertained and secure."
-        ],
-        "Emergency dental treatment": [
-            "They accepted me instantly without warning for an emergency dental treatment and relieved my acute pain.",
-            "Outstanding speed and medical precision during a severe emergency dental treatment situation."
-        ],
-        "Pain relief / sensitivity treatment": [
-            "Got instant pain relief / sensitivity treatment today. They targeted the structural issue flawlessly.",
-            "Highly accurate desensitization care. Finally, I can drink cold water without sharp sensitivity pain."
-        ],
-        "Cosmetic restoration/Veneers": [
-            "The visual design of my cosmetic restoration/Veneers looks astonishingly natural and highly premium.",
-            "Incredible skill with ceramic veneers and comprehensive cosmetic restoration details."
-        ],
-        "Night guard / splint": [
-            "The precision fit of my custom night guard / splint has instantly alleviated all my morning jaw stiffness.",
-            "High-quality medical grade polymers used for my bruxism night guard / splint. Fits very comfortably."
+        "senior": [
+            "Being a senior citizen, I am always careful about surgical procedures, but they treated me with immense patience.",
+            "Brought my elderly father here for treatment. The medical staff is incredibly respectful, calm, and cooperative."
         ]
     };
 
-    // Part 4: Hygiene & Final Trust Anchors
+    const generalOpeners = [
+        "Highly satisfied with the overall treatment at Dr TEETH dental clinic.",
+        "Really good experience here today with the medical staff.",
+        "Had a very smooth visit at this dental setup today.",
+        "Super happy with how my dental treatment turned out."
+    ];
+
+    const localSEOAnchors = [
+        "Dr TEETH is hands down the best dentist in Nashik for advanced treatments.",
+        "They have earned the reputation of being a highly professional dentist with a good hand near me.",
+        "Without a doubt, this is the most reliable and premium dental clinic on Jail Road.",
+        "They are easily the most professional dentist with a good hand in the Nashik Road vicinity.",
+        "If you are searching for a premium, high-tech dental clinic near identities in Nashik, visit this place."
+    ];
+
+    const extraTrustSentences = [
+        "The doctors use very modern equipment and explain everything before touching your teeth.",
+        "The consultation layout was incredibly reassuring and they answered every minor doubt patiently.",
+        "They focus heavily on absolute transparency rather than forcing corporate packages on you.",
+        "It's hard to find dental professionals who care this much about long-term patient comfort.",
+        "The diagnostic approach was highly digitalized and fast."
+    ];
+
+    const treatmentMiddles = {
+        "Routine checkup/X-ray": [
+            "I went in for a routine checkup/X-ray and appreciated the highly clear diagnostic explanation.",
+            "The doctor carried out a very meticulous routine checkup/X-ray and carefully walked me through the images.",
+            "They performed a swift yet comprehensive routine checkup/X-ray, highlighting minor updates early."
+        ],
+        "Dental cleaning/polishing": [
+            "The deep dental cleaning/polishing session was exceptionally gentle, leaving my teeth feeling completely fresh.",
+            "Got a very thorough dental cleaning/polishing done today. No sensitivity or pain during the scaling process.",
+            "Their modern equipment made the dental cleaning/polishing procedure highly comfortable with great plaque removal."
+        ],
+        "Tooth Filling": [
+            "The doctor did an incredibly neat job with my tooth filling. The shade matching looks entirely natural.",
+            "Had a quick tooth filling done to resolve a deep cavity. The anesthesia was perfect and I felt zero discomfort.",
+            "Excellent material selection and structural shaping done during my quick tooth filling treatment today."
+        ],
+        "Root canal treatment": [
+            "I was completely pain-free during the entire root canal treatment. They are specialized masters at nerve care.",
+            "Highly systematic execution during my multi-sitting root canal treatment. No post-treatment soreness at all.",
+            "The root canal treatment was completed with absolute precision. Truly relieved my structural tooth pain."
+        ],
+        "Tooth extraction": [
+            "Had a very clean tooth extraction completed. It was over much faster than I expected with zero pulling pain.",
+            "They managed my complex tooth extraction flawlessly. The clinical extraction technique was excellent.",
+            "Fast and safe tooth extraction process. The healing instructions provided by the doctor were highly descriptive."
+        ],
+        "IMPLANT treatment/Consultation": [
+            "Received a highly analytical IMPLANT treatment/Consultation. They mapped my bone structures with high-end tech.",
+            "Very clear cost-breakdown and transparency shown during my implant treatment consultation today.",
+            "The implant treatment layout was explained with immense medical clarity. Exceptional cosmetic restorative team."
+        ],
+        "Wisdom tooth removal": [
+            "Got my wisdom tooth removal surgical process done here. The healing has been fast due to their clean incision.",
+            "The surgical extraction for my painful wisdom tooth removal was completely stress-free, fast, and secure.",
+            "Excellent surgical execution for a complex wisdom tooth removal. Felt fully taken care of."
+        ],
+        "Crown placement": [
+            "The doctor did a highly precise job adapting my permanent crown placement. The bite logic feels completely normal.",
+            "The zirconia material choice for my crown placement is top tier. Fits securely against my regular gums.",
+            "Incredibly detailed measurements taken to ensure my custom crown placement felt fully integrated and strong."
+        ],
+        "Bridge treatment": [
+            "My smile gap is completely gone thanks to their excellent structural bridge treatment. Chewing feels stable again.",
+            "The aesthetic contours and anchor stability of my bridge treatment are perfect. Exceptional lab work.",
+            "Highly satisfied with the longevity and overall comfort provided by their bridge treatment process."
+        ],
+        "Denture": [
+            "They designed a highly snug, premium custom denture for me that doesn't slip while speaking or eating.",
+            "The dental team spent significant time refining my denture boundaries until the fit felt completely natural.",
+            "Wonderful clinical approach to custom denture modeling. Truly enhanced my daily structural comfort."
+        ],
+        "Teeth whitening": [
+            "My enamel looks multiple shades whiter after just a single teeth whitening sitting. Very professional cosmetic work.",
+            "The aesthetic enhancement from their advanced teeth whitening framework completely blew past my expectations.",
+            "Safe chemical processing used during the teeth whitening procedure. Minimal gum sensitivity and superb shade results."
+        ],
+        "Braces treatment": [
+            "Very pleased with the strategic monthly updates on my ongoing orthodontic braces treatment path.",
+            "The orthodontic team is highly methodical with track management for long-term braces treatment success.",
+            "Clean alignment changes visible on my teeth through their structured braces treatment approach."
+        ],
+        "Clear aligners": [
+            "Seamless 3D digital tracking loop executed for my new age clear aligners. Completely invisible and comfortable.",
+            "Enjoying my smile transformation journey using their premium clear aligners setup on Jail Road.",
+            "Highly practical option for scanning and fitting clear aligners. No painful wires or sharp brackets involved."
+        ],
+        "Gum surgery": [
+            "The operating surgeon was incredibly delicate while managing my periodontal gum surgery treatment.",
+            "Advanced hygienic protocols maintained during my deep laser gum surgery session. Minimal bleeding and quick recovery.",
+            "Superb surgical expertise shown for my intricate gum surgery. Post-surgical follow-ups were highly reassuring."
+        ],
+        "Child dental treatment": [
+            "They turned a scary child dental treatment appointment into a highly playful, rewarding experience for my son.",
+            "Meticulous, calm approach to specialized pediatric child dental treatment. My daughter didn't shed a single tear.",
+            "The best setup for child dental treatment around. The staff handles children with extreme sensitivity and fun."
+        ],
+        "Emergency dental treatment": [
+            "They took me in instantly without any prior notice for an emergency dental treatment and relieved my swelling.",
+            "Rapid responsiveness and excellent pain management protocols applied during an emergency dental treatment situation.",
+            "The emergency dental treatment was managed swiftly, saving my broken tooth structure under a time crunch."
+        ],
+        "Pain relief / sensitivity treatment": [
+            "The medical tracking for my sudden tooth pain relief and sensitivity was immediate and accurate.",
+            "They diagnosed the micro-fracture causing my sharp tooth sensitivity and gave instant, long-lasting relief.",
+            "Highly effective nerve desensitization treatment. Finally, I can consume cold liquids without shooting pain."
+        ],
+        "Cosmetic restoration/Veneers": [
+            "The physical finish of my cosmetic restoration/Veneers looks remarkably life-like and premium.",
+            "Amazing technical skill shown for composite veneers and comprehensive cosmetic restoration redesign.",
+            "They completely customized the smile layout using top-grade porcelain cosmetic restoration / veneers."
+        ],
+        "Night guard / splint": [
+            "The precision fit of my night guard / splint has instantly alleviated all my morning jaw stiffness.",
+            "High-quality medical grade polymers used for my bruxism night guard / splint. Fits very comfortably.",
+            "Excellent diagnostic approach for temporomandibular strain. The night guard / splint works wonderfully."
+        ]
+    };
+
+    const staffSentences = [
+        "The assistance team at the counter checks up on your billing data very transparently.",
+        "The coordination team ensures you are comfortable and don't face waiting time stress.",
+        "From entry to discharge, the clinical support framework is highly organized.",
+        "The nursing staff handles administrative tasks quickly and with extreme politeness."
+    ];
+
     const closers = [
-        "The overall setup on Jail Road Nashik Road is exceptionally clean and well-maintained.",
-        "The clinic prioritizes strict hygiene parameters. Highly recommend to everyone nearby!",
-        "Very courteous support team and transparent billing structures.",
-        "Will definitely continue using them for all my long-term dental requirements.",
-        "The treatment fees are completely worth the premium expert care they deliver.",
-        "If you want safe, advanced treatments, this is the clinic to rely on."
+        "The complete facility layout across Jail Road Nashik Road is exceptionally clean and modern.",
+        "They follow highly rigorous sterilization and sanitation parameters. Very safe clinic!",
+        "Very polite receptionist team and completely transparent billing structures with no hidden fees.",
+        "Will definitely continue using them as my permanent family hub for long-term oral checkups.",
+        "The specialized treatment quality is absolutely worth the competitive fees they charge.",
+        "If you want painless, modern oral procedures, this is the clinic you should rely on."
     ];
 
     function getRandomItem(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
+    // Shuffle an array to draw multiple non-repeating items
+    function shuffleArray(array) {
+        let arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
     function generateReview() {
+        const ageType = document.getElementById('ageGroup').value;
         const selectedService = document.getElementById('service').value;
         
-        // Randomly combine items to hit the 360 mathematical variations mark per service
-        const part1 = getRandomItem(openers);
-        const part2 = getRandomItem(localSEOAnchors);
-        const part3 = getRandomItem(treatmentMiddles[selectedService]);
-        const part4 = getRandomItem(closers);
+        let reviewSentences = [];
         
-        // Form a naturally reading human review paragraph
-        const finalReview = `${part1} ${part2} ${part3} ${part4}`;
+        // Dynamic Length Selector Logic
+        const diceRoll = Math.random(); // Shuffles layout styles automatically
+        
+        if (diceRoll < 0.34) {
+            // OPTION A: Short & Punchy (3 to 4 Sentences)
+            reviewSentences.push(getRandomItem(generalOpeners));
+            reviewSentences.push(getRandomItem(localSEOAnchors));
+            reviewSentences.push(getRandomItem(treatmentMiddles[selectedService]));
+            reviewSentences.push(getRandomItem(closers));
+        } 
+        else if (diceRoll < 0.67) {
+            // OPTION B: Medium Length (5 to 6 Sentences)
+            reviewSentences.push(getRandomItem(ageOpeners[ageType]));
+            reviewSentences.push(getRandomItem(localSEOAnchors));
+            reviewSentences.push(getRandomItem(treatmentMiddles[selectedService]));
+            reviewSentences.push(getRandomItem(extraTrustSentences));
+            reviewSentences.push(getRandomItem(closers));
+        } 
+        else {
+            // OPTION C: Long In-Depth Review (7 to 10 Sentences)
+            reviewSentences.push(getRandomItem(ageOpeners[ageType]));
+            reviewSentences.push(getRandomItem(generalOpeners));
+            reviewSentences.push(getRandomItem(localSEOAnchors));
+            
+            // Inject two distinct sentences regarding treatment to show deep detail
+            let treatmentShuffled = shuffleArray(treatmentMiddles[selectedService]);
+            reviewSentences.push(treatmentShuffled[0]);
+            if(treatmentShuffled[1]) reviewSentences.push(treatmentShuffled[1]);
+            
+            reviewSentences.push(getRandomItem(extraTrustSentences));
+            reviewSentences.push(getRandomItem(staffSentences));
+            
+            let closersShuffled = shuffleArray(closers);
+            reviewSentences.push(closersShuffled[0]);
+            reviewSentences.push(closersShuffled[1]);
+        }
+        
+        // Flatten sentences into a clean paragraph structure
+        const finalReviewText = reviewSentences.join(" ");
         
         const box = document.getElementById('reviewBox');
-        box.innerText = finalReview;
+        box.innerText = finalReviewText;
         box.style.display = 'block';
         
         document.getElementById('copyBtn').style.display = 'block';
@@ -198,10 +304,9 @@
         document.body.appendChild(tempTextArea);
         tempTextArea.select();
         tempTextArea.setSelectionRange(0, 99999); 
-        
         try {
             document.execCommand("copy");
-            alert("📋 Review text successfully copied! Click the blue button next to paste it into Google Maps.");
+            alert("📋 Copied! Now open Google and paste.");
         } catch (err) {
             navigator.clipboard.writeText(text);
         }
